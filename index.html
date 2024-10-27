@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Normalizers: Flight Planner</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #333;
+            color: #ffffff;
+        }
+        #navbar {
+            background-color: #444;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #navbar nav a {
+            color: #ffffff;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        #navbar .settings {
+            display: flex;
+            align-items: center;
+            color: #bbb;
+        }
+        #main-content {
+            display: flex;
+            padding: 20px;
+        }
+        #flight-form {
+            width: 30%;
+            background-color: #222;
+            padding: 20px;
+            border-radius: 8px;
+            margin-right: 20px;
+        }
+        #map {
+            width: 70%;
+            text-align: center;
+        }
+        h3 {
+            color: #00b0ff;
+        }
+        .form-group label {
+            color: #ccc;
+        }
+        .buttons .btn {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header id="navbar">
+        <span>The Normalizers: Flight Planner</span>
+        <nav>
+            <a href="#">Flights</a>
+            <a href="#">Track</a>
+            <a href="#">Weather</a>
+            <a href="#">Airports</a>
+            <a href="#">More</a>
+        </nav>
+        <div class="settings">
+            <span>Help 14:35 UTC</span>
+            <span style="margin-left: 15px;">English</span>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Flight Form -->
+        <div id="flight-form">
+            <h2>New Flight</h2>
+            <h3>Flight Details</h3>
+            <form>
+                <div class="form-group">
+                    <label>Tail Number:</label>
+                    <input type="text" class="form-control" name="tailNumber">
+                </div>
+                <div class="form-group">
+                    <label>Flight Code:</label>
+                    <input type="text" class="form-control" name="flightCode">
+                </div>
+                <div class="form-group">
+                    <label>Departure Time:</label>
+                    <input type="text" class="form-control" name="departureTime">
+                </div>
+                <div class="form-group">
+                    <label>Arrival Time:</label>
+                    <input type="text" class="form-control" name="arrivalTime">
+                </div>
+                <div class="form-group">
+                    <label>Flight Status:</label>
+                    <input type="text" class="form-control" name="flightStatus">
+                </div>
+
+                <h3>Aircraft Details</h3>
+                <div class="form-group">
+                    <label>Operational Status:</label>
+                    <input type="text" class="form-control" name="operationalStatus">
+                </div>
+                <div class="form-group">
+                    <label>Aircraft Model:</label>
+                    <input type="text" class="form-control" name="aircraftModel">
+                </div>
+                <div class="form-group">
+                    <label>Propulsion Type:</label>
+                    <input type="text" class="form-control" name="propulsionType">
+                </div>
+                <div class="form-group">
+                    <label>Passenger Capacity:</label>
+                    <input type="text" class="form-control" name="passengerCapacity">
+                </div>
+
+                <div class="buttons">
+                    <button type="button" class="btn btn-success">Recalculate</button>
+                    <button type="button" class="btn btn-warning">Autoroute</button>
+                    <button type="button" class="btn btn-danger">Reset</button>
+                    <button type="button" class="btn btn-success">Save</button>
+                    <button type="button" class="btn btn-primary">Next</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Map Placeholder -->
+        <div id="map">
+            <img src="path/to/placeholder-map.png" alt="Map Placeholder" style="width: 100%; height: auto;">
+        </div>
+    </main>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
