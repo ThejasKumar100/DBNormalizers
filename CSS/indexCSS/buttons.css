@@ -1,0 +1,54 @@
+/* buttons.css */
+.buttons .btn {
+    margin: 5px;
+    padding: 12px 25px;
+    font-weight: bold;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: none;
+    color: #ffffff;
+    border: none;
+}
+
+.buttons .btn-danger {
+    background-color: #b33939;
+}
+
+.buttons .btn-secondary {
+    background-color: #4b4b4b;
+}
+
+.buttons .btn-warning {
+    background-color: #e1a32a;
+    color: #ffffff;
+}
+
+.buttons .btn-success {
+    background-color: #3a8548;
+}
+
+.buttons .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.buttons .btn-danger:hover {
+    background-color: #a83232;
+}
+
+.buttons .btn-secondary:hover {
+    background-color: #666666;
+}
+
+.buttons .btn-warning:hover {
+    background-color: #d19020;
+}
+
+.buttons .btn-success:hover {
+    background-color: #327841;
+}
+
+.buttons .btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}

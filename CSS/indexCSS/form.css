@@ -1,0 +1,39 @@
+/* form.css */
+#flight-form {
+    flex: 1;
+    background-color: #23272a;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+#flight-form h2 {
+    color: white;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+h3 {
+    color: white;
+    margin-top: 20px;
+    font-size: 1.25em;
+    font-weight: bold;
+}
+
+.form-group label {
+    color: #bbb;
+    font-weight: 500;
+}
+
+.form-control {
+    background-color: #1c1f24;
+    color: #ffffff;
+    border: 1px solid #444;
+    border-radius: 5px;
+}
+
+.form-control:focus {
+    border-color: #00b0ff;
+    box-shadow: 0 0 8px rgba(0, 176, 255, 0.3);
+}
