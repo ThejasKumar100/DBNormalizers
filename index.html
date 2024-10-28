@@ -7,23 +7,21 @@
     <title>The Normalizers: Flight Planner</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    
     <link rel="stylesheet" href="CSS/indexCSS/navbar.css">
     <link rel="stylesheet" href="CSS/indexCSS/buttons.css">
     <link rel="stylesheet" href="CSS/indexCSS/form.css">
-    <link rel="stylesheet" href="CSS/indexCSS/main.css">
-    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
 </head>
 
-<body>
+<body style="background-color: #2c2f33">
     <!-- Navigation Bar -->
     <header id="navbar">
-        <span>The Normalizers: Flight Planner</span>
+        <span id="app_title">The Normalizers: Flight Planner</span>
         <nav>
-            <a href="#">Flights</a>
-            <a href="#">Track</a>
-            <a href="weather.html">Weather</a>
-            <a href="#">Airports</a>
+            <a id="nav_flights" href="#">Flights</a>
+            <a id="nav_track" href="#">Track</a>
+            <a id="nav_weather" href="weather.html">Weather</a>
+            <a id="nav_airports" href="#">Airports</a>
         </nav>
         <div class="settings">
             <span id="current-time"></span>
@@ -37,30 +35,29 @@
                 <option value="ru">Русский</option>
             </select>
         </div>
-        
-        
     </header>
+    
 
     <!-- Main Content -->
     <div class="container-fluid mt-5">
         <div class="row">
             <div class="col-md-5 col-12">
-                <main id="main-content ">
+                <main id="main-content">
                     <!-- Flight Form -->
                     <div id="flight-form">
-                        <h2>New Flight</h2>
-                        <h3>Flight Details</h3>
+                        <h2 id="new_flight">New Flight</h2>
+                        <h3 id="flight_details">Flight Details</h3>
                         <form>
                             <div class="row">
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
-                                        <label>Tail Number:</label>
+                                        <label id="tail_number">Tail Number:</label>
                                         <input type="text" class="form-control" name="tailNumber">
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
-                                        <label>Flight Code:</label>
+                                        <label id="flight_code">Flight Code:</label>
                                         <input type="text" class="form-control" name="flightCode">
                                     </div>
                                 </div>
@@ -69,94 +66,82 @@
                             <div class="row">
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
-                                        <label>Departure Time:</label>
+                                        <label id="departure_time">Departure Time:</label>
                                         <input type="text" class="form-control" name="departureTime">
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
-                                        <label>Arrival Time:</label>
+                                        <label id="arrival_time">Arrival Time:</label>
                                         <input type="text" class="form-control" name="arrivalTime">
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label>Flight Status:</label>
+                                <label id="flight_status">Flight Status:</label>
                                 <input type="text" class="form-control" name="flightStatus">
                             </div>
 
-                            <h3>Aircraft Details</h3>
+                            <h3 id="aircraft_details">Aircraft Details</h3>
                             <div class="form-group">
-                                <label>Operational Status:</label>
+                                <label id="operational_status">Operational Status:</label>
                                 <input type="text" class="form-control" name="operationalStatus">
                             </div>
                             <div class="form-group">
-                                <label>Aircraft Model:</label>
+                                <label id="aircraft_model">Aircraft Model:</label>
                                 <input type="text" class="form-control" name="aircraftModel">
                             </div>
                             <div class="form-group">
-                                <label>Propulsion Type:</label>
+                                <label id="propulsion_type">Propulsion Type:</label>
                                 <input type="text" class="form-control" name="propulsionType">
                             </div>
                             <div class="form-group">
-                                <label>Passenger Capacity:</label>
+                                <label id="passenger_capacity">Passenger Capacity:</label>
                                 <input type="text" class="form-control" name="passengerCapacity">
                             </div>
 
                             <div class="buttons">
                                 <div class="row">
-                                    <!-- Bottom Left: Filled red, white text -->
                                     <div class="col-md-4 col-12 pr-0 mb-2">
-                                        <button type="button" class="btn btn-danger text-white btn-block">Reset</button>
+                                        <button id="reset" type="button" class="btn btn-danger text-white btn-block">Reset</button>
                                     </div>
-
-                                    <!-- Top Left: Hollow green border, green text -->
                                     <div class="col-md-4 col-12 mb-2">
-                                        <button type="button" class="btn btn-secondary btn-block">Recalculate</button>
+                                        <button id="recalculate" type="button" class="btn btn-secondary btn-block">Recalculate</button>
                                     </div>
-
-                                    <!-- Top Right: Filled orange, white text -->
-                                    <div class="col-md-4 col-12 pl-0 mb-2">
-                                        <button type="button"
-                                            class="btn  text-white btn-block" style="background-color:#1371ce">Autoroute</button>
+                                    <div class="col-md-4 col-12 mb-2">
+                                        <button id="autoroute" type="button" class="btn text-white btn-block" style="background-color:#1371ce">Autoroute</button>
                                     </div>
                                 </div>
-
                                 <div class="row">
-                                    <!-- Bottom Middle: Filled green, white text -->
                                     <div class="col-md-6 col-12 mb-2">
-                                        <button type="button" class="btn btn-success text-white btn-block">Save</button>
+                                        <button id="save" type="button" class="btn btn-success text-white btn-block">Save</button>
                                     </div>
-
-                                    <!-- Bottom Right: Filled green, white text -->
                                     <div class="col-md-6 col-12 mb-2">
-                                        <button type="button" class="btn btn-success text-white btn-block">Next</button>
+                                        <button id="next" type="button" class="btn btn-success text-white btn-block">Next</button>
                                     </div>
                                 </div>
                             </div>
-
                         </form>
                     </div>
-
+                </main>
             </div>
-            <div class="col-md-7 col-12">
-                <!-- Map Placeholder -->
-                <div id="map">
-                    <img src="path/to/placeholder-map.png" alt="Map Placeholder">
+            <div class="col-md-7 col-12 my-auto">
+                <div id="map" style="height: 100vh; border: 3px solid #1371ce; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);">
                 </div>
             </div>
         </div>
-
     </div>
-
-
-    </main>
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script src="https://unpkg.com/i18next@21.8.12/dist/umd/i18next.min.js"></script>
     <script src="JS/indexJS/main.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
 </body>
 
+</html>

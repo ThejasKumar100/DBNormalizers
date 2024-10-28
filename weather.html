@@ -12,64 +12,74 @@
 
 <body>
     <header id="navbar">
-        <span>The Normalizers: Flight Planner</span>
+        <span id="app_title">The Normalizers: Flight Planner</span>
         <nav>
-            <a href="index.html">Flights</a>
-            <a href="#">Track</a>
-            <a href="weather.html">Weather</a>
-            <a href="#">Airports</a>
+            <a id="nav_flights" href="index.html">Flights</a>
+            <a id="nav_track" href="#">Track</a>
+            <a id="nav_weather" href="weather.html">Weather</a>
+            <a id="nav_airports" href="#">Airports</a>
+            <a id="nav_more" href="#">More</a>
         </nav>
         <div class="settings">
             <span id="current-time"></span>
             <select id="language-select" style="margin-left: 15px;">
                 <option value="en" selected>English</option>
+                <option value="es">Español</option>
+                <option value="fr">Français</option>
+                <option value="de">Deutsch</option>
+                <option value="zh">中文</option>
+                <option value="ja">日本語</option>
+                <option value="ru">Русский</option>
             </select>
         </div>
     </header>
 
     <div class="container mt-5">
-        <h2>Live Weather Information</h2>
+        <h2 id="current_conditions">Current Conditions</h2>
         <div class="form-group">
             <label for="city-input">Enter City Name:</label>
             <input type="text" id="city-input" class="form-control" placeholder="e.g., New York">
         </div>
         <button id="get-weather-btn" class="btn btn-primary mb-4">Get Weather</button>
 
-        <div id="weather-result" class="card text-white bg-dark" style="display
-: none;">
+        <div id="weather-result" class="card text-white bg-dark" style="display: none;">
             <div class="card-body">
-                <div class="d-flex align-items-center"> <img id="weather-icon" src="" alt="Weather Icon" class="mr-3"
-                        style="width: 60px; height: 60px;">
+                <div class="d-flex align-items-center">
+                    <img id="weather-icon" src="" alt="Weather Icon" class="mr-3" style="width: 60px; height: 60px;">
                     <h3 id="city-name" class="mb-0"></h3>
                 </div>
                 <p id="weather-description" class="text-capitalize"></p>
                 <hr>
                 <div class="row">
                     <div class="col-md-6">
-                        <p><strong>Temperature:</strong> <span id="temperature"></span></p>
-                        <p><strong>Feels Like:</strong> <span id="feels-like"></span></p>
-                        <p><strong>Min/Max Temp:</strong> <span id="temp-min-max"></span></p>
+                        <p><strong id="temperature">Temperature:</strong> <span id="temperature-value"></span></p>
+                        <p><strong id="feels_like">Feels Like:</strong> <span id="feels-like"></span></p>
+                        <p><strong id="temp_min_max">Min/Max Temp:</strong> <span id="temp-min-max"></span></p>
                     </div>
                     <div class="col-md-6">
-                        <p><strong>Humidity:</strong> <span id="humidity"></span>%</p>
-                        <p><strong>Pressure:</strong> <span id="pressure"></span> hPa</p>
-                        <p><strong>Visibility:</strong> <span id="visibility"></span> km</p>
+                        <p><strong id="humidity">Humidity:</strong> <span id="humidity-value"></span>%</p>
+                        <p><strong id="pressure">Pressure:</strong> <span id="pressure-value"></span> hPa</p>
+                        <p><strong id="visibility">Visibility:</strong> <span id="visibility-value"></span> km</p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <p><strong>Wind Speed:</strong> <span id="wind-speed"></span> m/s</p>
+                        <p><strong id="wind_speed">Wind Speed:</strong> <span id="wind-speed"></span> m/s</p>
                     </div>
                     <div class="col-md-6">
-                        <p><strong>Sunrise:</strong> <span id="sunrise"></span></p>
-                        <p><strong>Sunset:</strong> <span id="sunset"></span></p>
+                        <p><strong id="sunrise">Sunrise:</strong> <span id="sunrise-time"></span></p>
+                        <p><strong id="sunset">Sunset:</strong> <span id="sunset-time"></span></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="JS/weatherJS/weather.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/i18next@21.8.12/dist/umd/i18next.min.js"></script>
+    <script src="JS/weatherJS/weather.js"></script>
+</body>
+
+</html>
