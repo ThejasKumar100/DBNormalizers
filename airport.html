@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airport Information</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/indexCSS/navbar.css">
+    <link rel="stylesheet" href="CSS/airportCSS/airport.css">
+</head>
+
+<body style="background-color: #2c2f33">
+    <!-- Navigation Bar -->
+    <header id="navbar">
+        <span id="app_title">The Normalizers</span>
+        <nav>
+            <a href="index.html">Aircraft Details</a>
+            <a href="flights.html">Flights</a>
+            <a href="passenger.html">Passenger Info</a>
+            <a href="weather.html">Weather</a>
+            <a href="airport.html">Airports</a>
+        </nav>
+        <div class="settings">
+            <span id="current-time"></span>
+            <select id="language-select" style="margin-left: 15px;">
+                <option value="en" selected>English</option>
+                <option value="es">Español</option>
+                <option value="fr">Français</option>
+                <option value="de">Deutsch</option>
+                <option value="zh">中文</option>
+                <option value="ja">日本語</option>
+                <option value="ru">Русский</option>
+            </select>
+        </div>
+    </header>
+
+    <!-- Fullscreen Table for Airport Information -->
+    <div class="container-fluid mt-5">
+        <h2>Airport Details</h2>
+        <table class="table table-dark table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Airport Code</th>
+                    <th>Airport Name</th>
+                    <th>City/Location</th>
+                    <th>Number of Gates</th>
+                    <th>Timezone</th>
+                </tr>
+            </thead>
+            <tbody id="airport-table-body">
+                <!-- Airport rows will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Button to Open Modal Form -->
+    <button id="add-airport-btn" class="btn btn-primary" data-toggle="modal" data-target="#addAirportModal" style="font-size:15px;">
+        Add Airport
+    </button>
+
+    <!-- Add Airport Modal -->
+    <div class="modal fade" id="addAirportModal" tabindex="-1" aria-labelledby="addAirportModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addAirportModalLabel">Add Airport Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="airport-form">
+                        <div class="form-group">
+                            <label for="airport_code">Airport Code:</label>
+                            <input type="text" class="form-control" id="airport_code" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="airport_name">Airport Name:</label>
+                            <input type="text" class="form-control" id="airport_name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="city_location">City/Location:</label>
+                            <input type="text" class="form-control" id="city_location" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="number_of_gates">Number of Gates:</label>
+                            <input type="number" class="form-control" id="number_of_gates" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="timezone">Timezone:</label>
+                            <input type="text" class="form-control" id="timezone" required>
+                        </div>
+                        <button type="button" class="btn btn-success btn-block" onclick="addAirport()">Add Airport</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="JS/indexJS/navbar.js"></script>
+    <script src="JS/airportJS/airport.js"></script>
+    <script>
+        function addAirport() {
+            const airportCode = document.getElementById("airport_code").value;
+            const airportName = document.getElementById("airport_name").value;
+            const cityLocation = document.getElementById("city_location").value;
+            const numberOfGates = document.getElementById("number_of_gates").value;
+            const timezone = document.getElementById("timezone").value;
+
+            if (airportCode && airportName && cityLocation && numberOfGates && timezone) {
+                const tableBody = document.getElementById("airport-table-body");
+
+                // Create a new row and cells
+                const newRow = tableBody.insertRow();
+                newRow.insertCell(0).textContent = airportCode;
+                newRow.insertCell(1).textContent = airportName;
+                newRow.insertCell(2).textContent = cityLocation;
+                newRow.insertCell(3).textContent = numberOfGates;
+                newRow.insertCell(4).textContent = timezone;
+
+                // Hide the modal and clear the form
+                $('#addAirportModal').modal('hide');
+                document.getElementById("airport-form").reset();
+            }
+        }
+    </script>
+</body>
+
+</html>

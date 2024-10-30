@@ -16,12 +16,13 @@
 <body style="background-color: #2c2f33">
     <!-- Navigation Bar -->
     <header id="navbar">
-        <span id="app_title">The Normalizers: Flight Planner</span>
+        <span>The Normalizers</span>
         <nav>
+            <a href="index.html">Aircraft Details</a>
             <a id="nav_flights" href="flights.html">Flights</a>
-            <a id="nav_track" href="#">Track</a>
+            <a href="passenger.html">Passenger Info</a>
             <a id="nav_weather" href="weather.html">Weather</a>
-            <a id="nav_airports" href="#">Airports</a>
+            <a id="nav_airports" href="airport.html">Airports</a>
         </nav>
         <div class="settings">
             <span id="current-time"></span>
@@ -44,63 +45,38 @@
             <div class="col-md-5 col-12">
                 <main id="main-content">
                     <!-- Flight Form -->
-                    <div id="flight-form">
-                        <h2 id="new_flight">New Flight</h2>
-                        <h3 id="flight_details">Flight Details</h3>
+                    <div id="aircraft-form">
+                        <h2>Aircraft Details</h2>
                         <form>
-                            <div class="row">
-                                <div class="col-md-6 col-12">
-                                    <div class="form-group">
-                                        <label id="tail_number">Tail Number:</label>
-                                        <input type="text" class="form-control" name="tailNumber">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-12">
-                                    <div class="form-group">
-                                        <label id="flight_code">Flight Code:</label>
-                                        <input type="text" class="form-control" name="flightCode">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6 col-12">
-                                    <div class="form-group">
-                                        <label id="departure_time">Departure Time:</label>
-                                        <input type="text" class="form-control" name="departureTime">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-12">
-                                    <div class="form-group">
-                                        <label id="arrival_time">Arrival Time:</label>
-                                        <input type="text" class="form-control" name="arrivalTime">
-                                    </div>
-                                </div>
-                            </div>
-
                             <div class="form-group">
-                                <label id="flight_status">Flight Status:</label>
-                                <input type="text" class="form-control" name="flightStatus">
-                            </div>
-
-                            <h3 id="aircraft_details">Aircraft Details</h3>
-                            <div class="form-group">
-                                <label id="operational_status">Operational Status:</label>
-                                <input type="text" class="form-control" name="operationalStatus">
+                                <label for="tail_number">Tail Number:</label>
+                                <input type="text" class="form-control" id="tail_number" name="tailNumber" required>
                             </div>
                             <div class="form-group">
-                                <label id="aircraft_model">Aircraft Model:</label>
-                                <input type="text" class="form-control" name="aircraftModel">
+                                <label for="operational_status">Operational Status:</label>
+                                <input type="text" class="form-control" id="operational_status" name="operationalStatus" required>
                             </div>
                             <div class="form-group">
-                                <label id="propulsion_type">Propulsion Type:</label>
-                                <input type="text" class="form-control" name="propulsionType">
+                                <label for="aircraft_model">Aircraft Model:</label>
+                                <input type="text" class="form-control" id="aircraft_model" name="aircraftModel" required>
                             </div>
                             <div class="form-group">
-                                <label id="passenger_capacity">Passenger Capacity:</label>
-                                <input type="text" class="form-control" name="passengerCapacity">
+                                <label for="manufacturer">Manufacturer:</label>
+                                <input type="text" class="form-control" id="manufacturer" name="manufacturer" required>
                             </div>
-
+                            <div class="form-group">
+                                <label for="year_creation">Year of Creation:</label>
+                                <input type="number" class="form-control" id="year_creation" name="yearCreation" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="propulsion_type">Propulsion Type:</label>
+                                <input type="text" class="form-control" id="propulsion_type" name="propulsionType">
+                            </div>
+                            <div class="form-group">
+                                <label for="passenger_capacity">Passenger Capacity:</label>
+                                <input type="number" class="form-control" id="passenger_capacity" name="passengerCapacity" required>
+                            </div>
+                    
                             <div class="buttons">
                                 <div class="row">
                                     <div class="col-md-4 col-12 pr-0 mb-2">
@@ -123,7 +99,7 @@
                                 </div>
                             </div>
                         </form>
-                    </div>
+                    </div>                    
                 </main>
             </div>
             <div class="col-md-7 col-12 my-auto">

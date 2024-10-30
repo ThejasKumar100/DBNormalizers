@@ -11,12 +11,13 @@
 
 <body>
     <header id="navbar">
-        <span id="app_title">The Normalizers: Flight Planner</span>
+        <span id="app_title">The Normalizers</span>
         <nav>
+            <a href="index.html">Aircraft Details</a>
             <a id="nav_flights" href="flights.html">Flights</a>
-            <a id="nav_track" href="#">Track</a>
+            <a href="passenger.html">Passenger Info</a>
             <a id="nav_weather" href="weather.html">Weather</a>
-            <a id="nav_airports" href="#">Airports</a>
+            <a id="nav_airports" href="airport.html">Airports</a>
         </nav>
         <div class="settings">
             <span id="current-time"></span>
@@ -44,7 +45,7 @@
                     <th>Arrival Airport</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="flight-table-body">
                 <tr>
                     <td colspan="5" class="text-center">No flight data available</td>
                 </tr>
@@ -69,25 +70,25 @@
                     <form id="new-flight-form">
                         <div class="form-group">
                             <label for="flightCode">Flight Code</label>
-                            <input type="text" class="form-control" id="flightCode" placeholder="e.g., AAL 2423">
+                            <input type="text" class="form-control" id="flightCode" placeholder="e.g., AAL 2423" required>
                         </div>
                         <div class="form-group">
                             <label for="departureTime">Departure Time</label>
-                            <input type="datetime-local" class="form-control" id="departureTime">
+                            <input type="datetime-local" class="form-control" id="departureTime" required>
                         </div>
                         <div class="form-group">
                             <label for="arrivalTime">Arrival Time</label>
-                            <input type="datetime-local" class="form-control" id="arrivalTime">
+                            <input type="datetime-local" class="form-control" id="arrivalTime" required>
                         </div>
                         <div class="form-group">
                             <label for="departureAirport">Departure Airport</label>
-                            <input type="text" class="form-control" id="departureAirport" placeholder="e.g., LAX">
+                            <input type="text" class="form-control" id="departureAirport" placeholder="e.g., LAX" required>
                         </div>
                         <div class="form-group">
                             <label for="arrivalAirport">Arrival Airport</label>
-                            <input type="text" class="form-control" id="arrivalAirport" placeholder="e.g., JFK">
+                            <input type="text" class="form-control" id="arrivalAirport" placeholder="e.g., JFK" required>
                         </div>
-                        <button type="submit" class="btn btn-success btn-large btn-block">Add Flight</button>
+                        <button type="button" class="btn btn-success btn-large btn-block" onclick="addFlight()">Add Flight</button>
                     </form>
                 </div>
             </div>
@@ -98,6 +99,38 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="JS/flightsJS/flights.js"></script>
+
+    <script>
+        function addFlight() {
+            const flightCode = document.getElementById("flightCode").value;
+            const departureTime = document.getElementById("departureTime").value;
+            const arrivalTime = document.getElementById("arrivalTime").value;
+            const departureAirport = document.getElementById("departureAirport").value;
+            const arrivalAirport = document.getElementById("arrivalAirport").value;
+
+            // If all inputs are filled, add the flight to the table
+            if (flightCode && departureTime && arrivalTime && departureAirport && arrivalAirport) {
+                const tableBody = document.getElementById("flight-table-body");
+
+                // Clear the "No flight data available" message if it exists
+                if (tableBody.rows[0].cells[0].textContent === "No flight data available") {
+                    tableBody.innerHTML = '';
+                }
+
+                // Create a new row and cells
+                const newRow = tableBody.insertRow();
+                newRow.insertCell(0).textContent = flightCode;
+                newRow.insertCell(1).textContent = new Date(departureTime).toLocaleString();
+                newRow.insertCell(2).textContent = new Date(arrivalTime).toLocaleString();
+                newRow.insertCell(3).textContent = departureAirport;
+                newRow.insertCell(4).textContent = arrivalAirport;
+
+                // Hide the modal and reset the form
+                $('#addFlightModal').modal('hide');
+                document.getElementById("new-flight-form").reset();
+            }
+        }
+    </script>
 </body>
 
 </html>

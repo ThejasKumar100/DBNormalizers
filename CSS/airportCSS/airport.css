@@ -1,6 +1,6 @@
-/* flights.css */
+/* airport.css */
 
-/* Page Background and Text */
+/* General Page Background and Text */
 body {
     background-color: #2c2f33;
     color: #ffffff;
@@ -8,7 +8,7 @@ body {
 }
 
 /* Container */
-.container {
+.container-fluid {
     background-color: #1c1f24;
     border-radius: 10px;
     padding: 30px;
@@ -61,7 +61,7 @@ h2 {
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
 }
 
-/* Navbar to Match Existing Aesthetic */
+/* Navbar Styling */
 #navbar {
     background: linear-gradient(90deg, #3b3e44, #2c2f33);
     padding: 15px 30px;
@@ -133,8 +133,8 @@ h2 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* Add Flight Button */
-#add-flight-btn {
+/* Add Airport Button */
+#add-airport-btn {
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -151,7 +151,7 @@ h2 {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-#add-flight-btn:hover {
+#add-airport-btn:hover {
     transform: scale(1.1);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
@@ -193,5 +193,5 @@ h2 {
 }
 
 .btn-success:hover {
-    background-color: #327841;
+    background-color: #0e5ea8;
 }
