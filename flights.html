@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Normalizers: Flight Planner - Flights</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/flightsCSS/flights.css">
+</head>
+
+<body>
+    <header id="navbar">
+        <span id="app_title">The Normalizers: Flight Planner</span>
+        <nav>
+            <a id="nav_flights" href="flights.html">Flights</a>
+            <a id="nav_track" href="#">Track</a>
+            <a id="nav_weather" href="weather.html">Weather</a>
+            <a id="nav_airports" href="#">Airports</a>
+        </nav>
+        <div class="settings">
+            <span id="current-time"></span>
+            <select id="language-select" style="margin-left: 15px;">
+                <option value="en" selected>English</option>
+                <option value="es">Español</option>
+                <option value="fr">Français</option>
+                <option value="de">Deutsch</option>
+                <option value="zh">中文</option>
+                <option value="ja">日本語</option>
+                <option value="ru">Русский</option>
+            </select>
+        </div>
+    </header>
+
+    <div class="container mt-5">
+        <h2>Flight Details</h2>
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Flight Code</th>
+                    <th>Departure Time</th>
+                    <th>Arrival Time</th>
+                    <th>Departure Airport</th>
+                    <th>Arrival Airport</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="5" class="text-center">No flight data available</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Button to Add Flights -->
+    <button id="add-flight-btn" class="btn btn-primary" data-toggle="modal" data-target="#addFlightModal" style="font-size:15px;">Add Flight</button>
+
+    <!-- Add Flight Modal -->
+    <div class="modal fade" id="addFlightModal" tabindex="-1" aria-labelledby="addFlightModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addFlightModalLabel">Add New Flight</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="new-flight-form">
+                        <div class="form-group">
+                            <label for="flightCode">Flight Code</label>
+                            <input type="text" class="form-control" id="flightCode" placeholder="e.g., AAL 2423">
+                        </div>
+                        <div class="form-group">
+                            <label for="departureTime">Departure Time</label>
+                            <input type="datetime-local" class="form-control" id="departureTime">
+                        </div>
+                        <div class="form-group">
+                            <label for="arrivalTime">Arrival Time</label>
+                            <input type="datetime-local" class="form-control" id="arrivalTime">
+                        </div>
+                        <div class="form-group">
+                            <label for="departureAirport">Departure Airport</label>
+                            <input type="text" class="form-control" id="departureAirport" placeholder="e.g., LAX">
+                        </div>
+                        <div class="form-group">
+                            <label for="arrivalAirport">Arrival Airport</label>
+                            <input type="text" class="form-control" id="arrivalAirport" placeholder="e.g., JFK">
+                        </div>
+                        <button type="submit" class="btn btn-success btn-large btn-block">Add Flight</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="JS/flightsJS/flights.js"></script>
+</body>
+
+</html>
