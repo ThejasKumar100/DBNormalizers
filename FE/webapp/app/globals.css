@@ -21,11 +21,13 @@ body {
 }
 
 
-/* --------------------- Search Bar CSS */
+.element {
+  max-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
 
-/* From Uiverse.io by satyamchaudharydev */ 
-/* From uiverse.io by @satyamchaudharydev */
-/* removing default style of button */
+/* --------------------- Search Bar CSS */
 
 .form button {
   border: none;
