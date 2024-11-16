@@ -1,0 +1,43 @@
+/* public/styles.css */
+
+/* Existing styles... */
+
+/* Form Styles */
+form#ticketForm {
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    background-color: #fafafa;
+  }
+  
+  form#ticketForm h2 {
+    margin-bottom: 15px;
+  }
+  
+  form#ticketForm label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  form#ticketForm input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  form#ticketForm button {
+    padding: 10px 15px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  form#ticketForm button:hover {
+    background-color: #218838;
+  }
+  

@@ -1,0 +1,55 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ticket Information</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <h1>Ticket Information</h1>
+
+    <!-- Ticket Entry Form -->
+    <form id="ticketForm">
+        <h2>Add a New Ticket</h2>
+        <label for="flightCode">Flight Code:</label>
+        <input type="text" id="flightCode" name="flightCode" required>
+
+        <label for="seatingNumber">Seating Number:</label>
+        <input type="text" id="seatingNumber" name="seatingNumber" required>
+
+        <label for="passengerFirstName">Passenger First Name:</label>
+        <input type="text" id="passengerFirstName" name="passengerFirstName" required>
+
+        <label for="passengerLastName">Passenger Last Name:</label>
+        <input type="text" id="passengerLastName" name="passengerLastName" required>
+
+        <label for="groupNumber">Group Number:</label>
+        <input type="text" id="groupNumber" name="groupNumber" maxlength="1" required>
+
+        <button type="submit">Add Ticket</button>
+    </form>
+
+    <!-- Ticket Information Table -->
+    <table id="ticketTable">
+        <thead>
+            <tr>
+                <th>Flight Code</th>
+                <th>Seating Number</th>
+                <th>Passenger First Name</th>
+                <th>Passenger Last Name</th>
+                <th>Group Number</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data will be dynamically inserted here by script.js -->
+        </tbody>
+    </table>
+
+    <!-- Include your JavaScript file -->
+    <script src="script.js"></script>
+</body>
+
+</html>
