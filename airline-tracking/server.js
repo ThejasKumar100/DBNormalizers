@@ -78,6 +78,82 @@ app.post('/tickets', (req, res) => {
   });
 });
 
+
+// Route to handle deleting a ticket
+app.delete('/tickets/:ownerID', (req, res) => {
+  const { ownerID } = req.params;
+
+  // Validate the ownerID
+  if (!ownerID) {
+    return res.status(400).json({ success: false, message: 'Owner ID is required.' });
+  }
+
+  // Prepare the SQL query
+  const sql = 'DELETE FROM TicketInfo WHERE OwnerID = ?';
+
+  // Execute the query
+  pool.query(sql, [ownerID], (error, results) => {
+    if (error) {
+      console.error('Error deleting ticket:', error);
+      return res.status(500).json({ success: false, message: 'Database error.' });
+    }
+
+    if (results.affectedRows === 0) {
+      return res.status(404).json({ success: false, message: 'Ticket not found.' });
+    }
+
+    res.json({ success: true, message: 'Ticket deleted successfully.' });
+  });
+});
+
+// Route to handle updating a ticket
+app.put('/tickets/:ownerID', (req, res) => {
+  const { ownerID } = req.params;
+  const { flightCode, seatingNumber, passengerFirstName, passengerLastName, groupNumber } = req.body;
+
+  // Validate input data
+  if (!flightCode || !seatingNumber || !passengerFirstName || !passengerLastName || !groupNumber) {
+    return res.status(400).json({ success: false, message: 'All fields are required.' });
+  }
+
+  // Optional: Validate that the new FlightCode exists in FlightDetails
+  const checkFlightSql = 'SELECT COUNT(*) AS count FROM FlightDetails WHERE FlightCode = ?';
+  pool.query(checkFlightSql, [flightCode], (err, results) => {
+    if (err) {
+      console.error('Error checking flight code:', err);
+      return res.status(500).json({ success: false, message: 'Database error.' });
+    }
+
+    if (results[0].count === 0) {
+      return res.status(400).json({ success: false, message: 'Flight code does not exist.' });
+    }
+
+    // Prepare the SQL query
+    const sql = `
+      UPDATE TicketInfo
+      SET FlightCode = ?, SeatingNumber = ?, PassengerFirstName = ?, PassengerLastName = ?, GroupNumber = ?
+      WHERE OwnerID = ?
+    `;
+
+    const values = [flightCode, seatingNumber, passengerFirstName, passengerLastName, groupNumber, ownerID];
+
+    // Execute the query
+    pool.query(sql, values, (error, results) => {
+      if (error) {
+        console.error('Error updating ticket:', error);
+        return res.status(500).json({ success: false, message: 'Database error.' });
+      }
+
+      if (results.affectedRows === 0) {
+        return res.status(404).json({ success: false, message: 'Ticket not found.' });
+      }
+
+      res.json({ success: true, message: 'Ticket updated successfully.' });
+    });
+  });
+});
+
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

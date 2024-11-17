@@ -1,2 +1,2 @@
 http://localhost:3000/index.html
-http://localhost:3000/tickets
+http://localhost:3000/tickets <-- backend API call for the ticket info
