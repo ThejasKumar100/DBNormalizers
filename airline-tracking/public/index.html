@@ -17,6 +17,8 @@
         <a class="navbar-brand" href="#">Airline Tracking</a>
     </nav>
 
+
+
     <div class="container mt-5">
         <!-- Ticket Entry Form -->
         <div class="card mb-5">
@@ -38,43 +40,55 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="passengerFirstName">Passenger First Name</label>
-                            <input type="text" class="form-control" id="passengerFirstName" name="passengerFirstName" required>
+                            <input type="text" class="form-control" id="passengerFirstName" name="passengerFirstName"
+                                required>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="passengerLastName">Passenger Last Name</label>
-                            <input type="text" class="form-control" id="passengerLastName" name="passengerLastName" required>
+                            <input type="text" class="form-control" id="passengerLastName" name="passengerLastName"
+                                required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="groupNumber">Group Number</label>
-                        <input type="text" class="form-control" id="groupNumber" name="groupNumber" maxlength="1" required>
+                        <input type="text" class="form-control" id="groupNumber" name="groupNumber" maxlength="1"
+                            required>
                     </div>
                     <button type="submit" class="btn btn-primary">Add Ticket</button>
                 </form>
             </div>
         </div>
 
+        <!-- Search Bar -->
+        <div class="card mb-3">
+            <div class="card-body">
+                <input type="text" id="searchInput" class="form-control" placeholder="Search tickets...">
+            </div>
+        </div>
+        
         <!-- Ticket Information Table -->
         <div class="card">
             <div class="card-header">
                 <h2>Ticket Information</h2>
             </div>
             <div class="card-body">
-                <table class="table table-striped" id="ticketTable">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>Flight Code</th>
-                            <th>Seating Number</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Group Number</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Data will be dynamically inserted here by script.js -->
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table table-striped" id="ticketTable">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Flight Code</th>
+                                <th>Seating Number</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Group Number</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data will be dynamically inserted here by script.js -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -94,25 +108,34 @@
                         </div>
                         <div class="form-group">
                             <label for="editSeatingNumber">Seating Number</label>
-                            <input type="text" class="form-control" id="editSeatingNumber" name="editSeatingNumber" required>
+                            <input type="text" class="form-control" id="editSeatingNumber" name="editSeatingNumber"
+                                required>
                         </div>
                         <div class="form-group">
                             <label for="editPassengerFirstName">Passenger First Name</label>
-                            <input type="text" class="form-control" id="editPassengerFirstName" name="editPassengerFirstName" required>
+                            <input type="text" class="form-control" id="editPassengerFirstName"
+                                name="editPassengerFirstName" required>
                         </div>
                         <div class="form-group">
                             <label for="editPassengerLastName">Passenger Last Name</label>
-                            <input type="text" class="form-control" id="editPassengerLastName" name="editPassengerLastName" required>
+                            <input type="text" class="form-control" id="editPassengerLastName"
+                                name="editPassengerLastName" required>
                         </div>
                         <div class="form-group">
                             <label for="editGroupNumber">Group Number</label>
-                            <input type="text" class="form-control" id="editGroupNumber" name="editGroupNumber" maxlength="1" required>
+                            <input type="text" class="form-control" id="editGroupNumber" name="editGroupNumber"
+                                maxlength="1" required>
                         </div>
                         <button type="submit" class="btn btn-success">Save Changes</button>
                     </form>
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div aria-live="polite" aria-atomic="true" style="position: fixed; top: 20px; right: 20px;">
+        <div id="toastContainer"></div>
     </div>
 
     <!-- Include jQuery and Bootstrap JS for modal functionality -->

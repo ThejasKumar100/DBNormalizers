@@ -1,27 +1,48 @@
 // public/script.js
 
+
 // Function to fetch ticket data from the server
-async function fetchTicketData() {
+async function fetchTicketData(searchTerm = '') {
     try {
+        // Ensure searchTerm is always a string
+        searchTerm = String(searchTerm || '');
         const response = await fetch('/tickets');
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data = await response.json();
-        displayTicketData(data);
+        displayTicketData(data, searchTerm);
     } catch (error) {
         console.error('Error fetching ticket data:', error);
     }
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    fetchTicketData(); // Load all tickets initially
+});
+
 // Function to display ticket data in the table
-function displayTicketData(tickets) {
+function displayTicketData(tickets, searchTerm = '') {
     const tableBody = document.querySelector('#ticketTable tbody');
+
+    // Ensure searchTerm is always a string
+    searchTerm = String(searchTerm || '');
 
     // Clear existing rows to avoid duplicates
     tableBody.innerHTML = '';
 
-    tickets.forEach(ticket => {
+    // Filter tickets based on search term
+    const filteredTickets = tickets.filter(ticket => {
+        const fullName = `${ticket.PassengerFirstName} ${ticket.PassengerLastName}`.toLowerCase();
+        return (
+            ticket.FlightCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            ticket.SeatingNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            fullName.includes(searchTerm.toLowerCase()) ||
+            ticket.GroupNumber.toString().includes(searchTerm)
+        );
+    });
+
+    filteredTickets.forEach(ticket => {
         const row = document.createElement('tr');
 
         // Flight Code
@@ -55,7 +76,7 @@ function displayTicketData(tickets) {
         // Delete Button
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Delete';
-        deleteButton.classList.add('btn', 'btn-sm', 'btn-danger', 'action-button','delete-button');
+        deleteButton.classList.add('btn', 'btn-sm', 'btn-danger', 'action-button', 'delete-button');
         deleteButton.addEventListener('click', () => deleteTicket(ticket.OwnerID));
         actionCell.appendChild(deleteButton);
 
@@ -73,7 +94,6 @@ function displayTicketData(tickets) {
         tableBody.appendChild(row);
     });
 }
-
 
 
 // Call the function to fetch and display ticket data when the page loads
@@ -147,11 +167,12 @@ async function deleteTicket(ownerID) {
         const result = await response.json();
 
         if (result.success) {
-            alert('Ticket deleted successfully.');
+            showToast('Ticket deleted successfully.', 'success');
             fetchTicketData(); // Refresh the table after deletion
         } else {
-            alert('Error deleting ticket: ' + result.message);
+            showToast('Error deleting ticket: ' + result.message, 'danger');
         }
+        
     } catch (error) {
         console.error('Error deleting ticket:', error);
         alert('An error occurred while deleting the ticket.');
@@ -250,3 +271,40 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+
+document.getElementById('searchInput').addEventListener('input', function () {
+    const searchTerm = this.value || '';
+    fetchTicketData(searchTerm);
+});
+
+function showToast(message, type = 'success') {
+    const toastContainer = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+
+    toast.className = `toast align-items-center text-white bg-${type} border-0`;
+    toast.role = 'alert';
+    toast.setAttribute('aria-live', 'assertive');
+    toast.setAttribute('aria-atomic', 'true');
+
+    toast.innerHTML = `
+        <div class="d-flex">
+            <div class="toast-body">
+                ${message}
+            </div>
+            <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    `;
+
+    toastContainer.appendChild(toast);
+
+    $(toast).toast({ delay: 3000 });
+    $(toast).toast('show');
+
+    // Remove the toast after it hides
+    $(toast).on('hidden.bs.toast', () => {
+        toast.remove();
+    });
+}
