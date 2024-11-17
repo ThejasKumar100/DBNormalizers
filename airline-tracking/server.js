@@ -39,22 +39,25 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}, link: http://localhost:3000/index.html`);
 });
 
-app.post('/search-tickets-vulnerable', (req, res) => {
-  const { flightCode, passengerLastName } = req.body;
+app.post('/update-tickets-vulnerable', (req, res) => {
+  const { flightCode, passengerLastName, newSeatingNumber } = req.body;
 
-  // Vulnerable SQL Query
-  let sql = 'SELECT * FROM TicketInfo WHERE 1=1';
-  if (flightCode) sql += ` AND FlightCode = '${flightCode}'`;
-  if (passengerLastName) sql += ` AND PassengerLastName = '${passengerLastName}'`;
+  let sql = `UPDATE TicketInfo SET SeatingNumber = '${newSeatingNumber}' WHERE FlightCode = '${flightCode}' AND PassengerLastName = '${passengerLastName}'`;
 
-  console.log('Executing SQL Query:', sql); // Log query to demonstrate SQL injection
+  console.log('Executing SQL Query:', sql);
 
   pool.query(sql, (error, results) => {
       if (error) {
-          console.error('Error executing query:', error);
-          return res.status(500).send('Database error.');
+          console.error('Error updating ticket:', error);
+          return res.status(500).json({ success: false, message: 'Database query failed' });
       }
-      res.json(results);
+
+      if (results.affectedRows === 0) {
+          return res.status(404).json({ success: false, message: 'No matching records found to update.' });
+      }
+
+      res.json({ success: true, message: 'Ticket updated successfully.' });
   });
 });
+
 

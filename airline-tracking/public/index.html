@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SQL Injection Demo - Part A</title>
+    <title>SQL Injection Demo - Part B</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="mb-5">SQL Injection Demo - Part A</h1>
-        <form id="vulnerableSearchForm">
+        <h1 class="mb-5">SQL Injection Demo - Part B</h1>
+        <form id="vulnerableUpdateForm">
             <div class="form-group">
                 <label for="flightCode">Flight Code</label>
                 <input type="text" id="flightCode" class="form-control" placeholder="Enter Flight Code">
@@ -19,7 +19,11 @@
                 <label for="passengerLastName">Passenger Last Name</label>
                 <input type="text" id="passengerLastName" class="form-control" placeholder="Enter Last Name">
             </div>
-            <button type="submit" class="btn btn-primary">Search</button>
+            <div class="form-group">
+                <label for="newSeatingNumber">New Seating Number</label>
+                <input type="text" id="newSeatingNumber" class="form-control" placeholder="Enter New Seating Number">
+            </div>
+            <button type="submit" class="btn btn-danger">Update</button>
         </form>
         <hr>
         <h2 class="mt-5">Search Results</h2>
@@ -40,20 +44,39 @@
     </div>
 
     <script>
-        document.getElementById('vulnerableSearchForm').addEventListener('submit', async function (event) {
+        document.getElementById('vulnerableUpdateForm').addEventListener('submit', async function (event) {
             event.preventDefault();
 
             const flightCode = document.getElementById('flightCode').value;
             const passengerLastName = document.getElementById('passengerLastName').value;
+            const newSeatingNumber = document.getElementById('newSeatingNumber').value;
 
             try {
-                const response = await fetch('/search-tickets-vulnerable', {
+                const updateResponse = await fetch('/update-tickets-vulnerable', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ flightCode, passengerLastName }),
+                    body: JSON.stringify({ flightCode, passengerLastName, newSeatingNumber }),
                 });
 
+                const updateResult = await updateResponse.json();
+
+                if (updateResult.success) {
+                    alert(`Successfully updated ticket for ${passengerLastName} on flight ${flightCode}.`);
+                    refreshSearchResults();
+                } else {
+                    alert(`Error: ${updateResult.message}`);
+                }
+            } catch (error) {
+                console.error('Error performing update:', error);
+                alert('An error occurred while attempting the update.');
+            }
+        });
+
+        async function refreshSearchResults() {
+            try {
+                const response = await fetch('/tickets');
                 const results = await response.json();
+
                 const resultsTable = document.getElementById('resultsTable').querySelector('tbody');
                 resultsTable.innerHTML = '';
 
@@ -69,9 +92,10 @@
                     resultsTable.appendChild(row);
                 });
             } catch (error) {
-                console.error('Error fetching search results:', error);
+                console.error('Error refreshing results table:', error);
             }
-        });
+        }
+        document.addEventListener('DOMContentLoaded', refreshSearchResults);
     </script>
 </body>
 </html>
