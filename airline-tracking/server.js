@@ -42,12 +42,12 @@ app.listen(port, () => {
 app.post('/search-tickets-vulnerable', (req, res) => {
   const { flightCode, passengerLastName } = req.body;
 
-  // Vulnerable SQL Query
-  let sql = 'SELECT * FROM TicketInfo WHERE 1=1';
-  if (flightCode) sql += ` AND FlightCode = '${flightCode}'`;
-  if (passengerLastName) sql += ` AND PassengerLastName = '${passengerLastName}'`;
+  // Start constructing the SQL query with potential conditions
+  let sql = 'SELECT * FROM TicketInfo WHERE '; // Use "1=1" to simplify adding conditions dynamically
+  if (flightCode) sql += ` FlightCode LIKE '${flightCode}%'`; // Use LIKE for partial match
+  if (passengerLastName) sql += ` AND PassengerLastName LIKE '${passengerLastName}%'`; // Use LIKE for partial match
 
-  console.log('Executing SQL Query:', sql); // Log query to demonstrate SQL injection
+  console.log('Executing SQL Query:', sql); // Log query to demonstrate SQL injection vulnerability
 
   pool.query(sql, (error, results) => {
       if (error) {
@@ -57,4 +57,5 @@ app.post('/search-tickets-vulnerable', (req, res) => {
       res.json(results);
   });
 });
+
 
