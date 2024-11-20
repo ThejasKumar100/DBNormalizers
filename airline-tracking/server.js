@@ -39,17 +39,33 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}, link: http://localhost:3000/index.html`);
 });
 
-app.post('/search-tickets-vulnerable', (req, res) => {
+app.post('/search-tickets-secure', (req, res) => {
   const { flightCode, passengerLastName } = req.body;
 
-  // Vulnerable SQL Query
-  let sql = 'SELECT * FROM TicketInfo WHERE ';
-  if (flightCode) sql += `FlightCode = '${flightCode}'`;
-  if (passengerLastName) sql += ` AND PassengerLastName = '${passengerLastName}'`;
+  // Initialize parts of the SQL query
+  let sql = 'SELECT * FROM TicketInfo';
+  const conditions = [];
+  const values = [];
 
-  console.log('Executing SQL Query:', sql); // Log query to demonstrate SQL injection
+  // Add conditions dynamically
+  if (flightCode) {
+      conditions.push('FlightCode LIKE ?'); // Use LIKE for partial match
+      values.push(`${flightCode}%`);
+  }
+  if (passengerLastName) {
+      conditions.push('PassengerLastName LIKE ?'); // Use LIKE for partial match
+      values.push(`${passengerLastName}%`);
+  }
 
-  pool.query(sql, (error, results) => {
+  // Append conditions to the SQL query if any exist
+  if (conditions.length > 0) {
+      sql += ' WHERE ' + conditions.join(' AND ');
+  }
+
+  console.log('Executing SQL Query:', sql, values); // Log query and values for debugging
+
+  // Execute the query with parameterized values
+  pool.query(sql, values, (error, results) => {
       if (error) {
           console.error('Error executing query:', error);
           return res.status(500).send('Database error.');
@@ -57,4 +73,5 @@ app.post('/search-tickets-vulnerable', (req, res) => {
       res.json(results);
   });
 });
+
 
