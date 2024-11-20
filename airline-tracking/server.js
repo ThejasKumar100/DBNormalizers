@@ -39,31 +39,22 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}, link: http://localhost:3000/index.html`);
 });
 
-app.post('/search-tickets-secure', (req, res) => {
+app.post('/search-tickets-vulnerable', (req, res) => {
   const { flightCode, passengerLastName } = req.body;
 
-  let sql = 'SELECT * FROM TicketInfo WHERE 1=1';
-  const params = [];
+  // Vulnerable SQL Query
+  let sql = 'SELECT * FROM TicketInfo WHERE ';
+  if (flightCode) sql += `FlightCode = '${flightCode}'`;
+  if (passengerLastName) sql += ` AND PassengerLastName = '${passengerLastName}'`;
 
-  if (flightCode) {
-    sql += ' AND FlightCode = ?';
-    params.push(flightCode);
-  }
+  console.log('Executing SQL Query:', sql); // Log query to demonstrate SQL injection
 
-  if (passengerLastName) {
-    sql += ' AND PassengerLastName = ?';
-    params.push(passengerLastName);
-  }
-
-  console.log('Executing Secure SQL Query:', sql);
-  console.log('With Parameters:', params)
-
-  pool.query(sql, params, (error, results) => {
-    if (error) {
-      console.error('Error executing secure query:', error);
-      return res.status(500).json({ error: 'Database query failed' });
-    }
-    res.json(results);
+  pool.query(sql, (error, results) => {
+      if (error) {
+          console.error('Error executing query:', error);
+          return res.status(500).send('Database error.');
+      }
+      res.json(results);
   });
 });
 
