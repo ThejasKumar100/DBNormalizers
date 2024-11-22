@@ -47,8 +47,6 @@ app.post("/search-tickets-vulnerable", (req, res) => {
   // Start constructing the SQL query with potential conditions
   let sql = "SELECT * FROM TicketInfo WHERE FlightCode='" + flightCode + "' OR PassengerLastName='" + passengerLastName + "'";
 
-"" OR SET FlightCode='Sigma'
-
   //Input this line in any input box to get all the data from the database
   //' OR '1'='1
 
