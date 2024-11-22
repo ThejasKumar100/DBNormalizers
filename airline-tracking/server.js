@@ -43,7 +43,7 @@ app.post('/update-tickets-vulnerable', (req, res) => {
   const { flightCode, passengerLastName, newSeatingNumber } = req.body;
 
   let sql = `UPDATE TicketInfo SET SeatingNumber = '${newSeatingNumber}' WHERE FlightCode = '${flightCode}' AND PassengerLastName = '${passengerLastName}'`;
-
+// ' OR '1'='1' OR PassengerLastName='Davis'; UPDATE TicketInfo SET PassengerLastName='HACKED', FlightCode='AAL9999' WHERE PassengerLastName='Davis'; --
   console.log('Executing SQL Query:', sql);
 
   pool.query(sql, (error, results) => {
