@@ -20,6 +20,7 @@ const pool = mysql.createPool({
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
+  multipleStatements: true,
 });
 
 app.get("/tickets", (req, res) => {
@@ -42,15 +43,17 @@ app.listen(port, () => {
 
 app.post("/search-tickets-vulnerable", (req, res) => {
   const { flightCode, passengerLastName } = req.body;
-  // let sql = `UPDATE TicketInfo SET SeatingNumber = '${newSeatingNumber}' WHERE FlightCode = '${flightCode}' AND PassengerLastName = '${passengerLastName}'`;
-  
-  const query = `UPDATE TicketInfo SET FlightCode='${flightCode}' WHERE PassengerLastName='${passengerLastName}'`;
-  
-  // Start constructing the SQL query with potential conditions
-  let sql = "SELECT * FROM TicketInfo WHERE FlightCode='" + flightCode + "' OR PassengerLastName='" + passengerLastName + "'";
 
-  //Input this line in any input box to get all the data from the database
-  //' OR '1'='1
+  // Start constructing the SQL query with potential conditions
+  let sql = "SELECT * FROM TicketInfo WHERE FlightCode='" + flightCode;
+
+  // Add condition for PassengerLastName if provided
+  if (passengerLastName) {
+    sql += " OR PassengerLastName='" + passengerLastName + "'";
+  }
+
+  //Input this line into flightcode and leave nothing for passengerlastname
+  // let sql = `UPDATE TicketInfo SET SeatingNumber = '${newSeatingNumber}' WHERE FlightCode = '${flightCode}' AND PassengerLastName = '${passengerLastName}'`;
 
   console.log("Executing SQL Query:", sql); // Log query to demonstrate SQL injection vulnerability
 
