@@ -1,16 +1,16 @@
-const express = require('express');
-const mysql = require('mysql2');
-const cors = require('cors');
-const path = require('path');
+const express = require("express");
+const mysql = require("mysql2");
+const cors = require("cors");
+const path = require("path");
 
 const app = express();
 const port = 3000;
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 app.use(express.json());
 
-require('dotenv').config();
+require("dotenv").config();
 
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
@@ -22,12 +22,11 @@ const pool = mysql.createPool({
   queueLimit: 0,
 });
 
-
-app.get('/tickets', (req, res) => {
-  pool.query('SELECT * FROM TicketInfo', (error, results) => {
+app.get("/tickets", (req, res) => {
+  pool.query("SELECT * FROM TicketInfo", (error, results) => {
     if (error) {
-      console.error('Error fetching tickets:', error);
-      res.status(500).json({ error: 'Database query failed' });
+      console.error("Error fetching tickets:", error);
+      res.status(500).json({ error: "Database query failed" });
     } else {
       res.json(results);
     }
@@ -36,26 +35,32 @@ app.get('/tickets', (req, res) => {
 
 // Start the server
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}, link: http://localhost:3000/index.html`);
+  console.log(
+    `Server is running on port ${port}, link: http://localhost:3000/index.html`
+  );
 });
 
-app.post('/search-tickets-vulnerable', (req, res) => {
+app.post("/search-tickets-vulnerable", (req, res) => {
   const { flightCode, passengerLastName } = req.body;
 
   // Start constructing the SQL query with potential conditions
-  let sql = 'SELECT * FROM TicketInfo WHERE '; // Use "1=1" to simplify adding conditions dynamically
-  if (flightCode) sql += ` FlightCode LIKE '${flightCode}%'`; // Use LIKE for partial match
-  if (passengerLastName) sql += ` AND PassengerLastName LIKE '${passengerLastName}%'`; // Use LIKE for partial match
+  let sql =
+    "SELECT * FROM TicketInfo WHERE FlightCode='" +
+    flightCode +
+    "' OR PassengerLastName='" +
+    passengerLastName +
+    "'";
 
-  console.log('Executing SQL Query:', sql); // Log query to demonstrate SQL injection vulnerability
+  //Input this line in any input box to get all the data from the database
+  //' OR '1'='1
+
+  console.log("Executing SQL Query:", sql); // Log query to demonstrate SQL injection vulnerability
 
   pool.query(sql, (error, results) => {
-      if (error) {
-          console.error('Error executing query:', error);
-          return res.status(500).send('Database error.');
-      }
-      res.json(results);
+    if (error) {
+      console.error("Error executing query:", error);
+      return res.status(500).send("Database error.");
+    }
+    res.json(results);
   });
 });
-
-
