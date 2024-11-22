@@ -42,6 +42,8 @@ app.listen(port, () => {
 
 app.post("/search-tickets-vulnerable", (req, res) => {
   const { flightCode, passengerLastName } = req.body;
+  // let sql = `UPDATE TicketInfo SET SeatingNumber = '${newSeatingNumber}' WHERE FlightCode = '${flightCode}' AND PassengerLastName = '${passengerLastName}'`;
+  
   const query = `UPDATE TicketInfo SET FlightCode='${flightCode}' WHERE PassengerLastName='${passengerLastName}'`;
   
   // Start constructing the SQL query with potential conditions
